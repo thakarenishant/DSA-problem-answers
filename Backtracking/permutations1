@@ -1,3 +1,4 @@
+//this solution takes extra space complexity 
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
     // add list temp such that all permutation can be stored
@@ -25,5 +26,34 @@ class Solution {
             // remove all nums when recursion call is over or base is condition become true
             list.remove(list.size()-1);
         }
+    }
+}
+// this solution deos not takes extra space 
+class Solution {
+    List<List<Integer>> list=new ArrayList<>();
+    public List<List<Integer>> permute(int[] nums) {
+        permutations(0,nums,list);
+        return list;
+    }
+    void permutations(int index,int[]nums, List<List<Integer>> list){
+        if((nums.length-1)==index){
+            List<Integer> ds=new ArrayList<>();
+            for(int i=0;i<nums.length;i++){
+                ds.add(nums[i]);
+            }
+            list.add(ds);
+            return;
+        }
+        for(int i=index;i<nums.length;i++){
+           
+            swap(i,index,nums);
+            permutations(index+1,nums,list);
+            swap(i,index,nums);
+        }
+    }
+    void swap(int i,int index,int[] nums){
+        int temp=nums[i];
+        nums[i]=nums[index];
+        nums[index]=temp;
     }
 }
