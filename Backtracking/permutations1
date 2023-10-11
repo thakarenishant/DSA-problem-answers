@@ -1,0 +1,29 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+    // add list temp such that all permutation can be stored
+        List<List<Integer>>temp=new ArrayList<>();
+        permutations(nums,new ArrayList<>(),temp);
+        return temp;
+    }
+    public void permutations(int[]nums,List<Integer> list,List<List<Integer>>temp){
+    //base condtion where length of list were equal to nums then stop recursion
+       if(nums.length==list.size()){
+       //to add copy of list in a temp so that when list is modified previous permutations gets already in temp
+           temp.add(new ArrayList(list));
+           return;
+       }
+
+        for(int num:nums){
+        // if num is added to list in previous recurssion then skip for current recursion
+            if(list.contains(num)){
+                continue;
+            }
+            // add num in last
+            list.add(num);
+            // recursion call
+            permutations(nums,list,temp);
+            // remove all nums when recursion call is over or base is condition become true
+            list.remove(list.size()-1);
+        }
+    }
+}
